@@ -1,9 +1,11 @@
 package com.gameshop.controller;
 import com.gameshop.entities.Game;
+import com.gameshop.services.GameService;
 
 import java.util.List;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,33 +16,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GameController {
-    private List<Game> games = new ArrayList<>();
+    @Autowired
+    private GameService service;
 
     @PostMapping("/add")
-    public boolean addGame(@RequestBody Game game){
-        return this.games.add(game);
+    public Game addGame(@RequestBody Game game){
+        return this.service.addGame(game);
     }
 
     @GetMapping("/get/{id}")
     public Game getGame(@PathVariable int id){
-        return this.games.get(id);
+        return this.service.getGame(id);
     }
 
     @GetMapping("/getAll")
     public List<Game> getAllGames(){
-        return games;
+        return this.service.getAllGames();
     }
 
     @PutMapping("/update/{id}")
     public Game updateGame(@PathVariable int id, @RequestBody Game game){
-        this.games.remove(id);
-        this.games.add(id, game);
-        return this.games.get(id);
+        return this.service.updateGame(id, game);
     }
 
     @DeleteMapping("/delete/{id}")
     public Game removeGame(@PathVariable int id){
-        return this.games.remove(id);
+        return this.service.removeGame(id);
     }
 
 }
