@@ -3,10 +3,13 @@ package com.gameshop.service;
 import com.gameshop.exception.GameNotFoundException;
 import com.gameshop.persistence.domain.Game;
 import com.gameshop.persistence.repository.GameRepo;
+import com.gameshop.rest.dto.GameDTO;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,43 +20,51 @@ public class GameService {
     @Autowired
     private GameRepo repo;
 
-    public Game addGame(Game game){
-        return this.repo.save(game);
+    @Autowired
+    private ModelMapper mapper;
+    
+    public GameDTO mapToDTO(Game game){
+        return this.mapper.map(game, GameDTO.class);
     }
 
-    public Game getGame(long id){
-        Optional<Game> existingOptional = this.repo.findById(id);
+    public GameDTO addGame(Game game){
+        return mapToDTO(this.repo.save(game));
+    }
+
+    public GameDTO getGame(long id){
+        Game game = this.repo.findById(id).orElseThrow(GameNotFoundException::new);
+        return mapToDTO(game);
+    }
+
+    public GameDTO getGameByTitle(String title){
+        Optional<Game> existingOptional = this.repo.findByTitle(title);
         Game existing = existingOptional.get();
-        return existing;
+        return mapToDTO(existing);
+    }
+    public List<GameDTO> getGamesByPrice(float price){
+        return this.repo.findByPrice(price).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public Game getGameByTitle(String title){
-        return this.repo.findByTitle(title).orElseThrow(GameNotFoundException::new);
-    }
-    public List<Game> getGamesByPrice(float price){
-        return this.repo.findByPrice(price);
-    }
-
-    public List<Game> getGamesByPriceGreaterThan(float price){
-        return this.repo.findByPriceGreaterThan(price);
+    public List<GameDTO> getGamesByPriceGreaterThan(float price){
+        return this.repo.findByPriceGreaterThan(price).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
     
-    public List<Game> getGamesByPriceLessThan(float price){
-        return this.repo.findByPriceLessThan(price);
+    public List<GameDTO> getGamesByPriceLessThan(float price){
+        return this.repo.findByPriceLessThan(price).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public List<Game> getAllGames(){
-        return this.repo.findAll();
+    public List<GameDTO> getAllGames(){
+        return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public Game updateGame(long id, Game game){
+    public GameDTO updateGame(long id, Game game){
         Optional<Game> existingOptional = this.repo.findById(id);
         Game existing = existingOptional.get();
 
         existing.setTitle(game.getTitle());
         existing.setPrice(game.getPrice());
 
-        return this.repo.save(existing);
+        return mapToDTO(this.repo.save(existing));
     }
 
     public boolean removeGame(long id){
@@ -61,5 +72,4 @@ public class GameService {
         boolean exists = this.repo.existsById(id);
         return !exists;
     }
-
 }
