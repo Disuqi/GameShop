@@ -26,6 +26,23 @@ public class GameService {
         return existing;
     }
 
+    public Game getGameByTitle(String title){
+        Optional<Game> existingOptional = this.repo.findByTitle(title);
+        Game existing = existingOptional.get();
+        return existing;
+    }
+    public List<Game> getGamesByPrice(float price){
+        return this.repo.findByPrice(price);
+    }
+
+    public List<Game> getGamesByPriceGreaterThan(float price){
+        return this.repo.findByPriceGreaterThan(price);
+    }
+    
+    public List<Game> getGamesByPriceLessThan(float price){
+        return this.repo.findByPriceLessThan(price);
+    }
+
     public List<Game> getAllGames(){
         return this.repo.findAll();
     }
@@ -45,4 +62,5 @@ public class GameService {
         boolean exists = this.repo.existsById(id);
         return !exists;
     }
+
 }
