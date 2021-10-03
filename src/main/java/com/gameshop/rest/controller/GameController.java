@@ -1,6 +1,6 @@
-package com.gameshop.controller;
-import com.gameshop.entities.Game;
-import com.gameshop.services.GameService;
+package com.gameshop.rest.controller;
+import com.gameshop.persistence.domain.Game;
+import com.gameshop.service.GameService;
 
 import java.util.List;
 
