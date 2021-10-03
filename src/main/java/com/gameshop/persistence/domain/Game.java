@@ -1,4 +1,4 @@
-package com.gameshop.entities;
+package com.gameshop.persistence.domain;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

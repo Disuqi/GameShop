@@ -1,7 +1,8 @@
-package com.gameshop.services;
+package com.gameshop.service;
 
-import com.gameshop.entities.Game;
-import com.gameshop.repositories.GameRepo;
+import com.gameshop.exception.GameNotFoundException;
+import com.gameshop.persistence.domain.Game;
+import com.gameshop.persistence.repository.GameRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +28,7 @@ public class GameService {
     }
 
     public Game getGameByTitle(String title){
-        Optional<Game> existingOptional = this.repo.findByTitle(title);
-        Game existing = existingOptional.get();
-        return existing;
+        return this.repo.findByTitle(title).orElseThrow(GameNotFoundException::new);
     }
     public List<Game> getGamesByPrice(float price){
         return this.repo.findByPrice(price);
