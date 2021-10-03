@@ -1,46 +1,48 @@
 package com.gameshop.services;
 
 import com.gameshop.entities.Game;
+import com.gameshop.repositories.GameRepo;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 
 @Service
 public class GameService {
-    private List<Game> games = new ArrayList<>();
+    @Autowired
+    private GameRepo repo;
 
     public Game addGame(Game game){
-        // adds a new game
-        this.games.add(game);
-        // returns the last added game
-        return this.games.get(this.games.size() - 1);
+        return this.repo.save(game);
     }
 
-    public Game getGame(int id){
-        // returns the game with matching id
-        return this.games.get(id);
+    public Game getGame(long id){
+        Optional<Game> existingOptional = this.repo.findById(id);
+        Game existing = existingOptional.get();
+        return existing;
     }
 
     public List<Game> getAllGames(){
-        // returns the whole list
-        return this.games;
+        return this.repo.findAll();
     }
 
-    public Game updateGame(int id, Game game){
-        // removes the existing game with the same id
-        this.games.remove(id);
-        // adds the new game in its place
-        this.games.add(id, game);
-        // returns the updated game from the list
-        return this.games.get(id);
+    public Game updateGame(long id, Game game){
+        Optional<Game> existingOptional = this.repo.findById(id);
+        Game existing = existingOptional.get();
+
+        existing.setTitle(game.getTitle());
+        existing.setPrice(game.getPrice());
+
+        return this.repo.save(existing);
     }
 
-    public Game removeGame(int id){
-        //removes the game from the list and returns it
-        return this.games.remove(id);
+    public boolean removeGame(long id){
+        this.repo.deleteById(id);
+        boolean exists = this.repo.existsById(id);
+        return !exists;
     }
 }

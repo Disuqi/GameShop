@@ -3,7 +3,6 @@ import com.gameshop.entities.Game;
 import com.gameshop.services.GameService;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +24,7 @@ public class GameController {
     }
 
     @GetMapping("/get/{id}")
-    public Game getGame(@PathVariable int id){
+    public Game getGame(@PathVariable long id){
         return this.service.getGame(id);
     }
 
@@ -35,12 +34,12 @@ public class GameController {
     }
 
     @PutMapping("/update/{id}")
-    public Game updateGame(@PathVariable int id, @RequestBody Game game){
+    public Game updateGame(@PathVariable long id, @RequestBody Game game){
         return this.service.updateGame(id, game);
     }
 
     @DeleteMapping("/delete/{id}")
-    public Game removeGame(@PathVariable int id){
+    public boolean removeGame(@PathVariable long id){
         return this.service.removeGame(id);
     }
 

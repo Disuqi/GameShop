@@ -7,6 +7,11 @@ Making the Game Entity and the controller went very well.
 # Possible improvements
 n/a
 # Screenshots
-n/a
+[<img src="screenshots/add.png">](screenshots/add.png)
+[<img src="screenshots/add2.png">](screenshots/add2.png)
+[<img src="screenshots/delete.png">](screenshots/delete.png)
+[<img src="screenshots/get.png">](screenshots/get.png)
+[<img src="screenshots/getAll.png">](screenshots/getAll.png)
+[<img src="screenshots/update.png">](screenshots/update.png)
 # Link to Jira
 https://disuqi.atlassian.net/jira/software/projects/GAM/boards/2
