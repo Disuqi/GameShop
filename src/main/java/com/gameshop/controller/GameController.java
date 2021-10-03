@@ -28,6 +28,26 @@ public class GameController {
         return this.service.getGame(id);
     }
 
+    @GetMapping("/getByTitle/{title}")
+    public Game getGameByTitle(@PathVariable String title){
+        return this.service.getGameByTitle(title);
+    }
+
+    @GetMapping("/getByPrice/{price}")
+    public List<Game> getGamesByPrice(@PathVariable float price){
+        return this.service.getGamesByPrice(price);
+    }
+
+    @GetMapping("/getByPriceGreaterThan/{price}")
+    public List<Game> getGamesPriceHigherThan(@PathVariable float price){
+        return this.service.getGamesByPriceGreaterThan(price);
+    }
+
+    @GetMapping("/getByPriceLessThan/{price}")
+    public List<Game> getGamesLowerThan(@PathVariable float price){
+        return this.service.getGamesByPriceLessThan(price);
+    }
+
     @GetMapping("/getAll")
     public List<Game> getAllGames(){
         return this.service.getAllGames();
