@@ -3,6 +3,7 @@ package com.gameshop.rest.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 public class GameDTO {
@@ -10,5 +11,5 @@ public class GameDTO {
 
     private String title;
 
-    private float price;
+	private float price;
 }
