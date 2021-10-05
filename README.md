@@ -22,5 +22,7 @@ Adding more detail to my current Entity Game.java.
 [<img src="screenshots/update.png">](screenshots/lessThan.png)
 [<img src="screenshots/update.png">](screenshots/greaterThan.png)
 [<img src="screenshots/getByTitle.png">](screenshots/getByTitle.png)
+[<img src="screenshots/unitTesting.png">](screenshots/unitTesting.png)
+[<img src="screenshots/integrationTesting.png">](screenshots/integrationTesting.png)
 # Link to Jira
 https://disuqi.atlassian.net/jira/software/projects/GAM/boards/2
