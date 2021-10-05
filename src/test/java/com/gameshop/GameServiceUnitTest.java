@@ -1,9 +1,13 @@
 package com.gameshop;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.gameshop.exception.GameNotFoundException;
 import com.gameshop.persistence.domain.Game;
 import com.gameshop.persistence.repository.GameRepo;
 import com.gameshop.rest.dto.GameDTO;
@@ -71,6 +75,16 @@ public class GameServiceUnitTest {
 
         //is this.mapper necessary or good practice?
         Mockito.verify(repo, Mockito.times(1)).save(testGame);
+    }
+    
+    @Test
+    public void testCustomExceptionIsThrown(){
+        needed = false;
+        Mockito.when(repo.findById(1000L)).thenReturn(Optional.empty());
+        Exception gameException = assertThrows(GameNotFoundException.class, () -> {this.service.getGame(1000L);});
+        String exception = "Game does not exist with that ID";
+        assertTrue(gameException.getMessage().contains(exception));
+        Mockito.verify(repo, Mockito.times(1)).findById(1000L);
     }
 
     @Test

@@ -1,1 +1,0 @@
-INSERT INTO 'game' ('title', 'price') VALUES ('The legend of Zelda', 20.5), ('Dark souls 3', 69.9), ('Super Mario Bros', 15.0), ('Mortal Kombat 11', 79.9);
