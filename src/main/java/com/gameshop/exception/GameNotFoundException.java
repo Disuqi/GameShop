@@ -7,4 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Game does not exist with that ID")
 public class GameNotFoundException extends EntityNotFoundException{
+    public GameNotFoundException(){
+        super("Game does not exist with that ID");
+    }
 }  

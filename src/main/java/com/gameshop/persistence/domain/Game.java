@@ -1,11 +1,14 @@
 package com.gameshop.persistence.domain;
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Game{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +24,5 @@ public class Game{
         this.title = title;
         this.price = price;
     }
+   
 }

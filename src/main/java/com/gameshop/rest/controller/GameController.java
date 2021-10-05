@@ -6,6 +6,8 @@ import com.gameshop.service.GameService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,48 +22,48 @@ public class GameController {
     private GameService service;
 
     @PostMapping("/add")
-    public GameDTO addGame(@RequestBody Game game){
-        return this.service.addGame(game);
+    public ResponseEntity<GameDTO> addGame(@RequestBody Game game){
+        return new ResponseEntity<GameDTO>(this.service.addGame(game), HttpStatus.CREATED);
     }
 
     @GetMapping("/get/{id}")
-    public GameDTO getGame(@PathVariable long id){
-        return this.service.getGame(id);
+    public ResponseEntity<GameDTO> getGame(@PathVariable long id){
+        return new ResponseEntity<GameDTO>(this.service.getGame(id), HttpStatus.FOUND);
     }
 
     @GetMapping("/getByTitle/{title}")
-    public GameDTO getGameByTitle(@PathVariable String title){
-        return this.service.getGameByTitle(title);
+    public ResponseEntity<GameDTO> getGameByTitle(@PathVariable String title){
+        return new ResponseEntity<GameDTO>(this.service.getGameByTitle(title), HttpStatus.FOUND);
     }
 
     @GetMapping("/getByPrice/{price}")
-    public List<GameDTO> getGamesByPrice(@PathVariable float price){
-        return this.service.getGamesByPrice(price);
+    public ResponseEntity<List<GameDTO>> getGamesByPrice(@PathVariable float price){
+        return new ResponseEntity<List<GameDTO>>(this.service.getGamesByPrice(price), HttpStatus.FOUND);
     }
 
     @GetMapping("/getByPriceGreaterThan/{price}")
-    public List<GameDTO> getGamesPriceHigherThan(@PathVariable float price){
-        return this.service.getGamesByPriceGreaterThan(price);
+    public ResponseEntity<List<GameDTO>> getGamesPriceGreaterThan(@PathVariable float price){
+        return new ResponseEntity<List<GameDTO>>(this.service.getGamesByPriceGreaterThan(price), HttpStatus.FOUND);
     }
 
     @GetMapping("/getByPriceLessThan/{price}")
-    public List<GameDTO> getGamesLowerThan(@PathVariable float price){
-        return this.service.getGamesByPriceLessThan(price);
+    public ResponseEntity<List<GameDTO>> getGamesLessThan(@PathVariable float price){
+        return new ResponseEntity<List<GameDTO>>(this.service.getGamesByPriceLessThan(price), HttpStatus.FOUND);
     }
 
     @GetMapping("/getAll")
-    public List<GameDTO> getAllGames(){
-        return this.service.getAllGames();
+    public ResponseEntity<List<GameDTO>> getAllGames(){
+        return new ResponseEntity<List<GameDTO>>(this.service.getAllGames(), HttpStatus.FOUND);
     }
 
     @PutMapping("/update/{id}")
-    public GameDTO updateGame(@PathVariable long id, @RequestBody Game game){
-        return this.service.updateGame(id, game);
+    public ResponseEntity<GameDTO> updateGame(@PathVariable long id, @RequestBody Game game){
+        return new ResponseEntity<GameDTO>(this.service.updateGame(id, game), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public boolean removeGame(@PathVariable long id){
-        return this.service.removeGame(id);
+    public ResponseEntity<Boolean> removeGame(@PathVariable long id){
+        return new ResponseEntity<Boolean>(this.service.removeGame(id), HttpStatus.ACCEPTED);
     }
 
 }

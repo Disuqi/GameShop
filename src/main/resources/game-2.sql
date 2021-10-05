@@ -1,0 +1,1 @@
+INSERT INTO `GAME` (`TITLE`, `PRICE`) VALUES ('League of Legends', 0); 
